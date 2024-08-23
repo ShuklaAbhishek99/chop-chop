@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { useFetch } from "@/hooks/useFetch";
 import { login } from "@/supabase/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useUrlState } from "@/context/useUrlState";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -22,13 +23,17 @@ function Login() {
     });
     const [errors, setErrors] = useState([]);
     const { data, loading, error, fn: loginFn } = useFetch(login, formData);
+
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const longLink = searchParams.get("createNew");
+    const { fetchUser } = useUrlState();
 
     useEffect(() => {
         if (error === null && data) {
             navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
+
+            fetchUser();
         }
     }, [data, error]);
 
@@ -93,8 +98,8 @@ function Login() {
                         placeholder="Enter your email"
                         onChange={handleInputChange}
                     />
-                    {errors?.email && <Error message={errors.email} />}
                 </div>
+                {errors?.email && <Error message={errors.email} />}
                 <div className="space-y-1">
                     <Input
                         name="password"
@@ -102,8 +107,9 @@ function Login() {
                         placeholder="Enter your password"
                         onChange={handleInputChange}
                     />
-                    {errors?.password && <Error message={errors.password} />}
                 </div>
+                {errors?.password && <Error message={errors.password} />}
+                {error && <Error message={error.message} />}
             </CardContent>
             <CardFooter>
                 <Button onClick={handleLogin}>

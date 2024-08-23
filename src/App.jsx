@@ -1,8 +1,12 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
+import UrlProvider from "./context/context";
+
 function App() {
     return (
-        <>
-            <h1 className="bg-teal-300">ChopChop</h1>
-        </>
+        <UrlProvider>
+            <RouterProvider router={router} />
+        </UrlProvider>
     );
 }
 
