@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Link from "./pages/Link";
 import RedirectLink from "./pages/RedirectLink";
+import Protected from "./components/App/Protected";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +17,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard",
-                element: <Dashboard />,
+                element: (
+                    <Protected>
+                        <Dashboard />
+                    </Protected>
+                ),
             },
             {
                 path: "/auth",
@@ -24,7 +29,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/link/:id",
-                element: <Link />,
+                element: (
+                    <Protected>
+                        <Link />
+                    </Protected>
+                ),
             },
             {
                 path: "/:id",
