@@ -8,9 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Error from "../Error";
 import * as Yup from "yup";
+import { useFetch } from "@/hooks/useFetch";
+import { login } from "@/supabase/auth";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -18,6 +21,16 @@ function Login() {
         password: "",
     });
     const [errors, setErrors] = useState([]);
+    const { data, loading, error, fn: loginFn } = useFetch(login, formData);
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const longLink = searchParams.get("createNew");
+
+    useEffect(() => {
+        if (error === null && data) {
+            navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
+        }
+    }, [data, error]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -52,6 +65,8 @@ function Login() {
             });
 
             await schema.validate(formData, { abortEarly: false });
+
+            await loginFn();
         } catch (error) {
             const newError = {};
 
@@ -92,7 +107,7 @@ function Login() {
             </CardContent>
             <CardFooter>
                 <Button onClick={handleLogin}>
-                    {false ? <Loader2 className="animate-spin" /> : "Login"}
+                    {loading ? <Loader2 className="animate-spin" /> : "Login"}
                 </Button>
             </CardFooter>
         </Card>
