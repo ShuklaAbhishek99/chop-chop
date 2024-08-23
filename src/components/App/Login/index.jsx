@@ -40,13 +40,16 @@ function Login() {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
+        console.log(name, value);
+        
         setFormData({
             ...formData,
             [name]: value,
         });
     };
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setErrors([]);
 
         try {
@@ -84,39 +87,45 @@ function Login() {
     };
 
     return (
-        <Card>
-            <CardHeader>
-                <CardDescription>
-                    Login to your account if you already have one.
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-                <div className="space-y-1">
-                    <Input
-                        name="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        onChange={handleInputChange}
-                    />
-                </div>
-                {errors?.email && <Error message={errors.email} />}
-                <div className="space-y-1">
-                    <Input
-                        name="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        onChange={handleInputChange}
-                    />
-                </div>
-                {errors?.password && <Error message={errors.password} />}
-                {error && <Error message={error.message} />}
-            </CardContent>
-            <CardFooter>
-                <Button onClick={handleLogin}>
-                    {loading ? <Loader2 className="animate-spin" /> : "Login"}
-                </Button>
-            </CardFooter>
-        </Card>
+        <form onSubmit={handleLogin}>
+            <Card>
+                <CardHeader>
+                    <CardDescription>
+                        Login to your account if you already have one.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                        <Input
+                            name="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    {errors?.email && <Error message={errors.email} />}
+                    <div className="space-y-1">
+                        <Input
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    {errors?.password && <Error message={errors.password} />}
+                    {error && <Error message={error.message} />}
+                </CardContent>
+                <CardFooter>
+                    <Button type="submit">
+                        {loading ? (
+                            <Loader2 className="animate-spin" />
+                        ) : (
+                            "Login"
+                        )}
+                    </Button>
+                </CardFooter>
+            </Card>
+        </form>
     );
 }
 

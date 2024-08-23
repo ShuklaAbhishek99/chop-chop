@@ -15,7 +15,7 @@ export async function signUp({ name, email, password, profile_avatar }) {
         options: {
             data: {
                 name,
-                profile_avatar: `${supabaseUrl}/storage/v1/object/profile_pic/${fileName}`,
+                profile_avatar: `${supabaseUrl}/storage/v1/object/public/profile_avatar/${fileName}`,
             },
         },
     });
@@ -44,4 +44,10 @@ export async function getCurrentUser() {
     if (error) return new Error(error.message);
 
     return session.session?.user;
+}
+
+export async function logout() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) throw new Error(error.message);
 }

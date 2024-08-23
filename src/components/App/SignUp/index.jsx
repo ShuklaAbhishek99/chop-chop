@@ -137,7 +137,7 @@ export default function SignUp() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {errors?.password && <Error message={errors.password} />}
+                {errors?.profile_avatar && <Error message={errors.profile_avatar} />}
                 {error && <Error message={error.message} />}
             </CardContent>
             <CardFooter>
