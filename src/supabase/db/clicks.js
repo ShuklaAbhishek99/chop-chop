@@ -15,6 +15,20 @@ export async function getClicks(urlIds) {
     return data;
 }
 
+export async function getClicksforUrl(url_id) {
+    const { data, error } = await supabase
+        .from("clicks")
+        .select("*")
+        .eq("url_id", url_id);
+
+    if (error) {
+        console.error("Error fetching clicks :: ", error.message);
+        throw new Error("Unable to load stats");
+    }
+
+    return data;
+}
+
 const parser = new UAParser();
 
 export const storeClicks = async ({ id, originalUrl }) => {

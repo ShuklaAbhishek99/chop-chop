@@ -22,7 +22,7 @@ export async function createUrl(
                 title,
                 user_id,
                 original_url: longUrl,
-                custom_url: customUrl || "",
+                custom_url: customUrl || null,
                 short_url,
                 qr,
                 ...rest,

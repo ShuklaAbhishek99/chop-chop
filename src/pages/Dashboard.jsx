@@ -34,7 +34,7 @@ function Dashboard() {
 
     useEffect(() => {
         if (user?.id) {
-            urlsFn(); // Fetch URLs
+            urlsFn();
         }
     }, [user?.id]);
 
