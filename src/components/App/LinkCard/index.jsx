@@ -68,6 +68,7 @@ function LinkCard({ url, fetchUrls }) {
                     {url?.custom_url ? url.custom_url : url.short_url}
                 </span>
                 <span>{url?.original_url}</span>
+                <span className="text-sm my-2">{url?.description}</span>
                 <span className="flex items-end font-extralight text-sm flex-1">
                     {new Date(url?.created_at).toLocaleString([], {
                         day: "2-digit",

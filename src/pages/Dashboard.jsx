@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Error from "@/components/App/Error";
 import { useFetch } from "@/hooks/useFetch";
-import { createUrl, getUrls } from "@/supabase/db/urls";
+import { getUrls } from "@/supabase/db/urls";
 import { useUrlState } from "@/context/useUrlState";
 import { getClicks } from "@/supabase/db/clicks";
 import LinkCard from "@/components/App/LinkCard";
@@ -33,13 +32,6 @@ function Dashboard() {
         urlsData?.map((url) => url.id)
     );
 
-    const {
-        data: createUrlData,
-        loading: createUrlLoading,
-        error: createUrlError,
-        fn: createFn,
-    } = useFetch(createUrl, {});
-
     useEffect(() => {
         if (user?.id) {
             urlsFn(); // Fetch URLs
@@ -49,7 +41,6 @@ function Dashboard() {
     useEffect(() => {
         if (urlsData?.length) {
             clicksFn();
-            console.log(urlsData);
         }
     }, [urlsData?.length]);
 
