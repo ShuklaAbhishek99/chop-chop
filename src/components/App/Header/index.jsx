@@ -13,21 +13,16 @@ import { LinkIcon, LogOut } from "lucide-react";
 import { useUrlState } from "@/context/useUrlState";
 import { useFetch } from "@/hooks/useFetch";
 import { logout } from "@/supabase/auth";
-import { Progress } from "@/components/ui/progress";
-import { useState } from "react";
+import { BarLoader } from "react-spinners";
 
 function Header() {
     const navigate = useNavigate();
     const { loading, fn: logoutFn } = useFetch(logout);
     const { user, fetchUser } = useUrlState();
-    const [progress, setProgress] = useState(13);
 
     const handleLogout = () => {
         logoutFn().then(() => {
-            setProgress(80);
-            setTimeout(() => {
-                fetchUser();
-            }, 500);
+            fetchUser();
         });
         navigate("/");
     };
@@ -66,8 +61,10 @@ function Header() {
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
-                                    <LinkIcon className="mr-2 h-4 w-4" />
-                                    <Link to={"/dashboard"}>My Links</Link>
+                                    <Link to={"/dashboard"} className="flex">
+                                        <LinkIcon className="mr-2 h-4 w-4" />
+                                        My Links
+                                    </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     className="text-red-500"
@@ -82,9 +79,7 @@ function Header() {
                 </div>
             </nav>
 
-            {loading && (
-                <Progress className="mb-4" value={progress} width={100} />
-            )}
+            {loading && <BarLoader className="mb-4" width={"100%"} />}
         </>
     );
 }

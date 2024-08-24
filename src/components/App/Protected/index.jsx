@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUrlState } from "@/context/useUrlState";
 import { Progress } from "@/components/ui/progress";
+import { BarLoader } from "react-spinners";
 
 export default function Protected({ children }) {
     const [progress, setProgress] = useState(13);
@@ -18,7 +19,7 @@ export default function Protected({ children }) {
         return () => clearInterval(timer);
     }, [isAuthenticated, loading]);
 
-    if (loading) <Progress value={progress} />;
+    if (loading) return <BarLoader width={"100%"} />;
 
-    if (isAuthenticated) children;
+    if (isAuthenticated) return children;
 }
