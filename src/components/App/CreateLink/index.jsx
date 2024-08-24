@@ -71,7 +71,6 @@ function CreateLink() {
 
             const canvas = qrRef.current.canvasRef.current;
             const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-            console.log("BLOB: ", blob);
 
             await createUrlFn(blob);
         } catch (error) {

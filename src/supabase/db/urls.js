@@ -31,7 +31,7 @@ export async function createUrl(
         .select();
 
     if (error) {
-        console.error("Supabase service createUrl error :: ", error.message);
+        console.error("Error creating url :: ", error.message);
         throw new Error("Error creating short URL");
     }
 
@@ -45,7 +45,7 @@ export async function getUrls(user_id) {
         .eq("user_id", user_id);
 
     if (error) {
-        console.error("Supabase service getUrls error :: ", error.message);
+        console.error("Error fetching urls :: ", error.message);
         throw new Error("Unable to fetch URLs");
     }
 
@@ -61,7 +61,7 @@ export async function getUrl({ id, user_id }) {
         .single();
 
     if (error) {
-        console.error("Supabase service getUrl error :: ", error.message);
+        console.error("Error fetching url :: ", error.message);
         throw new Error("Error fetching short URL");
     }
 
@@ -72,11 +72,11 @@ export async function getLongUrl(id) {
     const { data: shortLinkData, error: shortLinkError } = await supabase
         .from("urls")
         .select("id, original_url")
-        .or(`short_url.eq${id}, custom_url.eq${id}`)
+        .or(`short_url.eq.${id}, custom_url.eq.${id}`)
         .single();
 
     if (shortLinkError && shortLinkError.code !== "PGRST116") {
-        console.error("Supabase service getLongUrl error :: ", shortLinkError);
+        console.error("Error fetching long url :: ", shortLinkError);
         return;
     }
 
@@ -87,7 +87,7 @@ export async function deleteUrl(id) {
     const { data, error } = await supabase.from("urls").delete().eq("id", id);
 
     if (error) {
-        console.error("Supabase service deleteUrl error :: ", error.message);
+        console.error("Error deleting url :: ", error.message);
         throw new Error("Error deleting the URL");
     }
 

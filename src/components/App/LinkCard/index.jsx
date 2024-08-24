@@ -64,7 +64,7 @@ function LinkCard({ url, fetchUrls }) {
                     {url.title}
                 </span>
                 <span className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
-                    https://localhost:5173/
+                    http://localhost:5173/
                     {url?.custom_url ? url.custom_url : url.short_url}
                 </span>
                 <span>{url?.original_url}</span>
@@ -139,12 +139,12 @@ function LinkCard({ url, fetchUrls }) {
                                 <RWebShare
                                     data={{
                                         title: `Visit ${url?.title}`,
-                                        url: `https://localhost:5173/${
+                                        url: `http://localhost:5173/${
                                             url?.custom_url
                                                 ? url.custom_url
                                                 : url.short_url
                                         }`,
-                                        text: "description",
+                                        text: `${url?.description || ""}`,
                                     }}
                                 >
                                     <Button>
