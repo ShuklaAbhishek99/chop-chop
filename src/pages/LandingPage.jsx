@@ -38,7 +38,7 @@ function LandingPage() {
                     value={longUrl}
                     onChange={(e) => setLongUrl(e.target.value)}
                 />
-                <Button type="submit" className="h-full" variant="destructive">
+                <Button type="submit" className="h-full">
                     Shorten !!
                 </Button>
             </form>

@@ -1,11 +1,11 @@
 import supabase, { supabaseUrl } from "../supabaseConfig";
 
 export async function createUrl(
-    { title, longUrl, customUrl, user_id },
+    { title, longUrl, customUrl, user_id, ...rest },
     qrcode
 ) {
     const short_url = Math.random().toString(36).substring(2, 6);
-    const fileName = `qr-${short_url}`;
+    const fileName = `QR_IMG-${short_url}`;
 
     const { error: storageError } = await supabase.storage
         .from("qrs")
@@ -25,6 +25,7 @@ export async function createUrl(
                 custom_url: customUrl || "",
                 short_url,
                 qr,
+                ...rest,
             },
         ])
         .select();

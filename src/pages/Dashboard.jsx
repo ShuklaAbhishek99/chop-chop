@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Error from "@/components/App/Error";
 import { useFetch } from "@/hooks/useFetch";
-import { getUrls } from "@/supabase/db/urls";
+import { createUrl, getUrls } from "@/supabase/db/urls";
 import { useUrlState } from "@/context/useUrlState";
 import { getClicks } from "@/supabase/db/clicks";
 import LinkCard from "@/components/App/LinkCard";
+import CreateLink from "@/components/App/CreateLink";
 
 function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +32,13 @@ function Dashboard() {
         getClicks,
         urlsData?.map((url) => url.id)
     );
+
+    const {
+        data: createUrlData,
+        loading: createUrlLoading,
+        error: createUrlError,
+        fn: createFn,
+    } = useFetch(createUrl, {});
 
     useEffect(() => {
         if (user?.id) {
@@ -75,7 +83,7 @@ function Dashboard() {
 
             <div className="flex justify-between">
                 <h1 className="text-4xl font-extrabold">My Links</h1>
-                <Button>Click</Button>
+                <CreateLink />
             </div>
 
             <div className="relative">
