@@ -45,7 +45,7 @@ export default function Device({ stats }) {
                                 <text
                                     x={x}
                                     y={y}
-                                    fill="blck"
+                                    fill="red"
                                     textAnchor={x > cx ? "start" : "end"}
                                     dominantBaseline="central"
                                 >
