@@ -21,13 +21,13 @@ function Auth() {
     }, [isAuthenticated, loading]);
 
     return (
-        <div className="mt-36 flex flex-col items-center gap-10">
-            <h1 className="text-5xl font-extrabold">
+        <div className="mt-36 flex flex-col items-center justify-center gap-10">
+            <h1 className="text-3xl sm:text-5xl font-extrabold">
                 {searchParams.get("createNew")
                     ? "Hold Up! Let's Login First."
                     : "Login / SignUp"}
             </h1>
-            <Tabs defaultValue="login" className="w-[400px]">
+            <Tabs defaultValue="login" className="sm:w-[400px]">
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="login">Login</TabsTrigger>
                     <TabsTrigger value="signup">Signup</TabsTrigger>

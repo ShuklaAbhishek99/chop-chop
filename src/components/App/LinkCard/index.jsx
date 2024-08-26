@@ -50,7 +50,7 @@ function LinkCard({ url, fetchUrls }) {
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-100 rounded-lg">
+        <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-100 dark:bg-zinc-950 rounded-lg">
             <div className="h-32 w-32">
                 <img
                     src={url.qr}

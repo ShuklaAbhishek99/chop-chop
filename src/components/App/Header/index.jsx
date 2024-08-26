@@ -9,16 +9,39 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LinkIcon, LogOut } from "lucide-react";
+import { LinkIcon, LogOut, Menu, Moon, Sun } from "lucide-react";
 import { useUrlState } from "@/context/useUrlState";
 import { useFetch } from "@/hooks/useFetch";
 import { logout } from "@/supabase/auth";
 import { BarLoader } from "react-spinners";
+import { useEffect, useState } from "react";
+import MobileNav from "./MobileNav";
 
 function Header() {
     const navigate = useNavigate();
     const { loading, fn: logoutFn } = useFetch(logout);
     const { user, fetchUser } = useUrlState();
+    const [theme, setTheme] = useState(
+        localStorage.getItem("theme") || "light"
+    );
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const html = document.querySelector("html");
+        html.classList.remove("light", "dark");
+
+        if (theme) {
+            html.classList.add(theme);
+            localStorage.setItem("theme", theme);
+        } else {
+            const defaultTheme = "light";
+            html.classList.add(defaultTheme);
+            setTheme(defaultTheme);
+            localStorage.setItem("theme", defaultTheme);
+        }
+
+        console.log("rendered");
+    }, [theme]);
 
     const handleLogout = () => {
         logoutFn().then(() => {
@@ -27,14 +50,59 @@ function Header() {
         navigate("/");
     };
 
+    const handleThemeChange = () => {
+        if (theme === "light") {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
+    };
+
+    console.log(isOpen);
+
     return (
         <>
-            <nav className="py-4 flex justify-between items-center">
-                <Link to={"/"}>
+            <nav className="py-2 mx-2 sm:mx-6 grid grid-cols-12 items-center">
+                {!user && (
+                    <div className="hidden gap-3 col-span-2 lg:flex font-semibold">
+                        <a href="/#faq" className="hover:underline">
+                            FAQ
+                        </a>
+                        <Link
+                            to={"https://abhishekshukla.xyz"}
+                            target="_blank"
+                            className="hover:underline"
+                        >
+                            View My Portfolio
+                        </Link>
+                    </div>
+                )}
+
+                <div
+                    className="hidden max-lg:block"
+                    onClick={() => setIsOpen(true)}
+                >
+                    <Menu />
+                </div>
+
+                <Link
+                    to={"/"}
+                    className="flex gap-3 flex-wrap justify-center col-span-9 max-sm:justify-start"
+                >
                     <img src="/Logo.png" alt="chopchop logo" className="h-16" />
+                    <span className="my-auto text-xl max-sm:hidden permanent-marker-regular">
+                        ChopChop
+                        <span className="text-sm align-top">&reg;</span>
+                    </span>
                 </Link>
 
-                <div>
+                <div className="flex gap-3 col-span-1 justify-end">
+                    <Button
+                        className="rounded-full p-2"
+                        onClick={handleThemeChange}
+                    >
+                        {theme === "light" ? <Moon /> : <Sun />}
+                    </Button>
                     {!user ? (
                         <Button
                             varient="outline"
@@ -80,6 +148,7 @@ function Header() {
             </nav>
 
             {loading && <BarLoader className="mb-4" width={"100%"} />}
+            <MobileNav isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );
 }

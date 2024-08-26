@@ -128,7 +128,7 @@ function CreateLink() {
                 />
                 {errors?.longUrl && <Error message={errors.longUrl} />}
                 <div className="flex items-center gap-2">
-                    <Card className="p-2">localhost:5173</Card>/
+                    <Card className="p-2">{import.meta.env.VITE_SITE_URL}</Card>/
                     <Input
                         id="customUrl"
                         name="customUrl"

@@ -10,6 +10,7 @@ import { useUrlState } from "@/context/useUrlState";
 import { getClicks } from "@/supabase/db/clicks";
 import LinkCard from "@/components/App/LinkCard";
 import CreateLink from "@/components/App/CreateLink";
+import AnimatedListComp from "@/components/App/Animations/AnimationList";
 
 function Dashboard() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -49,7 +50,7 @@ function Dashboard() {
     );
 
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 container my-8">
             {(clicksLoading || urlsLoading) && (
                 <BarLoader width={"100%"} color="#000000" />
             )}

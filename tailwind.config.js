@@ -68,10 +68,21 @@ export default {
                     from: { height: "var(--radix-accordion-content-height)" },
                     to: { height: "0" },
                 },
+                gradient: {
+                    to: {
+                        backgroundPosition: "var(--bg-size) 0",
+                    },
+                },
+                pulse: {
+                    "0%, 100%": { boxShadow: "0 0 0 0 var(--pulse-color)" },
+                    "50%": { boxShadow: "0 0 0 8px var(--pulse-color)" },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
+                gradient: "gradient 8s linear infinite",
+                pulse: "pulse var(--duration) ease-out infinite",
             },
         },
     },
