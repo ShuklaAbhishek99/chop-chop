@@ -74,11 +74,11 @@ function LinkCard({ url, fetchUrls }) {
                 <span className="text-3xl font-extrabold hover:underline cursor-pointer">
                     {url?.title}
                 </span>
-                <span className="text-lg sm:text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
+                <span className="text-lg sm:text-2xl text-blue-400 font-bold hover:underline cursor-pointer block break-words">
                     {import.meta.env.VITE_SITE_URL}/
                     {url?.custom_url ? url?.custom_url : url?.short_url}
                 </span>
-                <span className="break-words">{url?.original_url}</span>
+                <span className="break-words block">{url?.original_url}</span>
                 <span className="text-sm my-2">{url?.description}</span>
                 <span className="flex items-end font-extralight text-sm flex-1">
                     {new Date(url?.created_at).toLocaleString([], {

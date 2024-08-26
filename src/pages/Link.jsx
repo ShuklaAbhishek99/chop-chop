@@ -105,30 +105,30 @@ function Link() {
             )}
 
             <div className="flex flex-col gap-8 lg:flex-row justify-between container my-8">
-                <div className="flex flex-col items-start gap-8 rounded-lg lg:w-2/5">
-                    <div className="text-3xl sm:text-6xl font-extrabold hover:underline cursor-pointer">
+                <div className="lg:w-2/5 px-4">
+                    <div className="text-3xl sm:text-6xl font-extrabold hover:underline cursor-pointer my-4">
                         {urlData?.title}
                     </div>
-                    <div>
+                    <div className="my-4">
                         <a
                             href={`${import.meta.env.VITE_SITE_URL}/${link}`}
                             target="_blank"
-                            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-blue-400 font-bold break-words hover:underline cursor-pointer text-ellipsis overflow-hidden ..."
+                            className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl text-blue-400 font-bold hover:underline cursor-pointer block break-words"
                         >
                             {`${import.meta.env.VITE_SITE_URL}/${link}`}
                         </a>
                     </div>
-                    <div className="text-sm underline">Original url:</div>
-                    <div>
+                    <div className="text-sm underline my-4">Original url:</div>
+                    <div className="my-4">
                         <a
                             href={urlData?.original_url}
                             target="_blank"
-                            className="flex items-center gap-1 text-sm sm:text-lg md:text-xl lg:text-2xl break-words hover:underline cursor-pointer"
+                            className="text-sm sm:text-lg md:text-xl lg:text-2xl break-words hover:underline cursor-pointer block break-words"
                         >
                             {urlData?.original_url}
                         </a>
                     </div>
-                    <span className="text-sm sm:text-xl">
+                    <div className="text-sm sm:text-xl my-4">
                         {new Date(urlData?.created_at).toLocaleString([], {
                             day: "2-digit",
                             month: "2-digit",
@@ -136,17 +136,17 @@ function Link() {
                             hour: "2-digit",
                             minute: "2-digit",
                         })}
-                    </span>
+                    </div>
 
-                    <div className="w-full">
+                    <div className="w-full my-4">
                         <img
                             src={urlData?.qr}
                             alt="qr code"
-                            className="w-full max-w-60 self-center sm:self-start ring ring-blue-500 p-1 object-contain"
+                            className="max-w-60 self-center sm:self-start ring ring-blue-500 p-1 object-contain"
                         />
                     </div>
 
-                    <div>
+                    <div className="my-6">
                         <TooltipProvider>
                             <div className="flex gap-2 flex-wrap">
                                 <Tooltip>
