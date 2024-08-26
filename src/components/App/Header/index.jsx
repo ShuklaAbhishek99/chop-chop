@@ -8,7 +8,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LinkIcon, LogOut, Menu, Moon, Sun } from "lucide-react";
 import { useUrlState } from "@/context/useUrlState";
 import { useFetch } from "@/hooks/useFetch";
@@ -39,8 +38,6 @@ function Header() {
             setTheme(defaultTheme);
             localStorage.setItem("theme", defaultTheme);
         }
-
-        console.log("rendered");
     }, [theme]);
 
     const handleLogout = () => {
@@ -58,25 +55,21 @@ function Header() {
         }
     };
 
-    console.log(isOpen);
-
     return (
         <>
             <nav className="py-2 mx-2 sm:mx-6 grid grid-cols-12 items-center">
-                {!user && (
-                    <div className="hidden gap-3 col-span-2 lg:flex font-semibold">
-                        <a href="/#faq" className="hover:underline">
-                            FAQ
-                        </a>
-                        <Link
-                            to={"https://abhishekshukla.xyz"}
-                            target="_blank"
-                            className="hover:underline"
-                        >
-                            View My Portfolio
-                        </Link>
-                    </div>
-                )}
+                <div className="hidden gap-3 col-span-2 lg:flex font-semibold">
+                    <a href="/#faq" className="hover:underline">
+                        FAQ
+                    </a>
+                    <Link
+                        to={"https://abhishekshukla.xyz"}
+                        target="_blank"
+                        className="hover:underline"
+                    >
+                        View My Portfolio
+                    </Link>
+                </div>
 
                 <div
                     className="hidden max-lg:block"
@@ -87,7 +80,7 @@ function Header() {
 
                 <Link
                     to={"/"}
-                    className="flex gap-3 flex-wrap justify-center col-span-9 max-sm:justify-start"
+                    className="flex gap-3 flex-wrap justify-center col-span-8 max-sm:justify-start"
                 >
                     <img src="/Logo.png" alt="chopchop logo" className="h-16" />
                     <span className="my-auto text-xl max-sm:hidden permanent-marker-regular">
@@ -96,7 +89,7 @@ function Header() {
                     </span>
                 </Link>
 
-                <div className="flex gap-3 col-span-1 justify-end">
+                <div className="flex gap-3 col-span-2 justify-self-end">
                     <Button
                         className="rounded-full p-2"
                         onClick={handleThemeChange}
@@ -113,15 +106,15 @@ function Header() {
                     ) : (
                         <DropdownMenu>
                             <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
-                                <Avatar>
-                                    <AvatarImage
-                                        className="object-contain"
+                                <Button size="icon">
+                                    <img
+                                        className="min-w-[30px] min-h-[30px] rounded-full"
+                                        alt="avatar"
                                         src={
                                             user?.user_metadata?.profile_avatar
                                         }
                                     />
-                                    <AvatarFallback>AS</AvatarFallback>
-                                </Avatar>
+                                </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>
@@ -147,7 +140,7 @@ function Header() {
                 </div>
             </nav>
 
-            {loading && <BarLoader className="mb-4" width={"100%"} />}
+            {loading && <BarLoader className="mb-4" width={"100%"} color="green" />}
             <MobileNav isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );

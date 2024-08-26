@@ -11,12 +11,12 @@ function AppLayout() {
                 <Outlet />
             </main>
 
-            <footer className="px-10 pb-32 text-center mt-10 flex justify-center md:justify-end container">
-                Made with
+            <footer className="px-10 pb-32 text-center mt-10 flex justify-center flex-wrap md:justify-end container">
+                <span>Made with</span>
                 <span className="mx-2">
                     <Heart className="text-red-500 fill-red-500" />
                 </span>
-                by Abhishek Shukla
+                <span>by Abhishek Shukla</span>
             </footer>
 
             <div className="flex justify-center">

@@ -3,7 +3,6 @@ import {
     Clipboard,
     ClipboardCheck,
     Download,
-    Pen,
     Share2,
     Trash2,
 } from "lucide-react";
@@ -19,9 +18,21 @@ import { RWebShare } from "react-web-share";
 import { useFetch } from "@/hooks/useFetch";
 import { deleteUrl } from "@/supabase/db/urls";
 import { BeatLoader } from "react-spinners";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 function LinkCard({ url, fetchUrls }) {
     const [isCopy, setIsCopy] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
     const { loading: deleteLoading, fn: deleteFn } = useFetch(
         deleteUrl,
@@ -53,21 +64,21 @@ function LinkCard({ url, fetchUrls }) {
         <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-100 dark:bg-zinc-950 rounded-lg">
             <div className="h-32 w-32">
                 <img
-                    src={url.qr}
+                    src={url?.qr}
                     alt="qr code"
-                    className="h-32 object-contain ring ring-blue-500 self-start"
+                    className="min-h-32 min-w-32 object-contain ring ring-blue-500 self-start"
                 />
             </div>
 
-            <Link to={`/link/${url.id}`} className="flex flex-col flex-1">
+            <Link to={`/link/${url?.id}`} className="flex flex-col flex-1">
                 <span className="text-3xl font-extrabold hover:underline cursor-pointer">
-                    {url.title}
+                    {url?.title}
                 </span>
-                <span className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
-                    http://localhost:5173/
-                    {url?.custom_url ? url.custom_url : url.short_url}
+                <span className="text-lg sm:text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
+                    {import.meta.env.VITE_SITE_URL}/
+                    {url?.custom_url ? url?.custom_url : url?.short_url}
                 </span>
-                <span>{url?.original_url}</span>
+                <span className="break-words">{url?.original_url}</span>
                 <span className="text-sm my-2">{url?.description}</span>
                 <span className="flex items-end font-extralight text-sm flex-1">
                     {new Date(url?.created_at).toLocaleString([], {
@@ -81,7 +92,7 @@ function LinkCard({ url, fetchUrls }) {
             </Link>
             <div>
                 <TooltipProvider>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         <Tooltip>
                             <TooltipTrigger>
                                 <Button onClick={handleCopy}>
@@ -108,23 +119,15 @@ function LinkCard({ url, fetchUrls }) {
                         </Tooltip>
                         <Tooltip>
                             <TooltipTrigger>
-                                <Button
-                                    onClick={() =>
-                                        deleteFn().then(() => fetchUrls())
-                                    }
-                                >
-                                    {deleteLoading ? (
-                                        <BeatLoader size={5} />
-                                    ) : (
-                                        <Trash2 />
-                                    )}
+                                <Button onClick={() => setIsDeleteOpen(true)}>
+                                    <Trash2 />
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Delete Link</p>
                             </TooltipContent>
                         </Tooltip>
-                        <Tooltip>
+                        {/* <Tooltip>
                             <TooltipTrigger>
                                 <Button>
                                     <Pen />
@@ -133,7 +136,7 @@ function LinkCard({ url, fetchUrls }) {
                             <TooltipContent>
                                 <p>Edit Link</p>
                             </TooltipContent>
-                        </Tooltip>
+                        </Tooltip> */}
                         <Tooltip>
                             <TooltipTrigger>
                                 <RWebShare
@@ -159,6 +162,34 @@ function LinkCard({ url, fetchUrls }) {
                     </div>
                 </TooltipProvider>
             </div>
+
+            <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+                <AlertDialogTrigger asChild></AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your Link and remove the data from our
+                            servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => deleteFn().then(() => fetchUrls())}
+                        >
+                            {deleteLoading ? (
+                                <BeatLoader size={5} />
+                            ) : (
+                                "Continue"
+                            )}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

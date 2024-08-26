@@ -77,7 +77,7 @@ function Login() {
             const newError = {};
 
             error?.inner?.forEach((err) => {
-                newError[err.path] = err.message;
+                newError[err?.path] = err?.message;
             });
 
             setErrors(newError);
@@ -101,7 +101,7 @@ function Login() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    {errors?.email && <Error message={errors.email} />}
+                    {errors?.email && <Error message={errors?.email} />}
                     <div className="space-y-1">
                         <Input
                             name="password"
@@ -110,8 +110,8 @@ function Login() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    {errors?.password && <Error message={errors.password} />}
-                    {error && <Error message={error.message} />}
+                    {errors?.password && <Error message={errors?.password} />}
+                    {error && <Error message={error?.message} />}
                 </CardContent>
                 <CardFooter>
                     <Button type="submit">

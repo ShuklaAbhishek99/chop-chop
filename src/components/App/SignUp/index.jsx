@@ -83,7 +83,7 @@ export default function SignUp() {
             const newError = {};
 
             error?.inner?.forEach((err) => {
-                newError[err.path] = err.message;
+                newError[err?.path] = err?.message;
             });
 
             setErrors(newError);
@@ -104,7 +104,7 @@ export default function SignUp() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {errors?.name && <Error message={errors.name} />}
+                {errors?.name && <Error message={errors?.name} />}
                 <div className="space-y-1">
                     <Input
                         name="email"
@@ -113,7 +113,7 @@ export default function SignUp() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {errors?.email && <Error message={errors.email} />}
+                {errors?.email && <Error message={errors?.email} />}
                 <div className="space-y-1">
                     <Input
                         name="password"
@@ -137,8 +137,8 @@ export default function SignUp() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {errors?.profile_avatar && <Error message={errors.profile_avatar} />}
-                {error && <Error message={error.message} />}
+                {errors?.profile_avatar && <Error message={errors?.profile_avatar} />}
+                {error && <Error message={error?.message} />}
             </CardContent>
             <CardFooter>
                 <Button onClick={handleSignUp}>

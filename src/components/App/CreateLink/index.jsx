@@ -19,7 +19,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { createUrl } from "@/supabase/db/urls";
 import { Loader2 } from "lucide-react";
 
-function CreateLink() {
+function CreateLink({ name }) {
     const { user } = useUrlState();
     const navigate = useNavigate();
     const qrRef = useRef();
@@ -55,11 +55,11 @@ function CreateLink() {
         loading: createUrlLoading,
         error: createUrlError,
         fn: createUrlFn,
-    } = useFetch(createUrl, { ...formData, user_id: user.id });
+    } = useFetch(createUrl, { ...formData, user_id: user?.id });
 
     useEffect(() => {
         if (createUrlError === null && createUrlData) {
-            navigate(`/link/${createUrlData[0].id}`);
+            navigate(`/link/${createUrlData[0]?.id}`);
         }
     }, [createUrlError, createUrlData]);
 
@@ -69,15 +69,15 @@ function CreateLink() {
         try {
             await schema.validate(formData, { abortEarly: false });
 
-            const canvas = qrRef.current.canvasRef.current;
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+            const canvas = qrRef?.current?.canvasRef?.current;
+            const blob = await new Promise((resolve) => canvas?.toBlob(resolve));
 
             await createUrlFn(blob);
         } catch (error) {
             const newErrors = {};
 
-            error.inner?.forEach((err) => {
-                newErrors[err.path] = err.message;
+            error?.inner?.forEach((err) => {
+                newErrors[err.path] = err?.message;
             });
 
             setErrors(newErrors);
@@ -94,7 +94,7 @@ function CreateLink() {
             }}
         >
             <DialogTrigger>
-                <Button>Create Link</Button>
+                <Button>{name}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
@@ -115,25 +115,26 @@ function CreateLink() {
                     id="title"
                     name="title"
                     placeholder="Short link's title"
-                    value={formData.title}
+                    value={formData?.title}
                     onChange={handleInputChange}
                 />
-                {errors?.title && <Error message={errors.title} />}
+                {errors?.title && <Error message={errors?.title} />}
                 <Input
                     id="longUrl"
                     name="longUrl"
                     placeholder="Looong link"
-                    value={formData.longUrl}
+                    value={formData?.longUrl}
                     onChange={handleInputChange}
                 />
-                {errors?.longUrl && <Error message={errors.longUrl} />}
+                {errors?.longUrl && <Error message={errors?.longUrl} />}
                 <div className="flex items-center gap-2">
-                    <Card className="p-2">{import.meta.env.VITE_SITE_URL}</Card>/
+                    <Card className="p-2">{import.meta.env.VITE_SITE_URL}</Card>
+                    /
                     <Input
                         id="customUrl"
                         name="customUrl"
                         placeholder="Custom link (optional)"
-                        value={formData.customUrl}
+                        value={formData?.customUrl}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -141,10 +142,10 @@ function CreateLink() {
                     id="description"
                     name="description"
                     placeholder="Description (optional)"
-                    value={formData.description}
+                    value={formData?.description}
                     onChange={handleInputChange}
                 />
-                {errors?.message && <Error message={errors.message} />}
+                {errors?.message && <Error message={errors?.message} />}
 
                 <DialogFooter className="sm:justify-start">
                     <Button
