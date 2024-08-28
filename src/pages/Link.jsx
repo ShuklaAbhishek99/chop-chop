@@ -6,7 +6,6 @@ import {
     Clipboard,
     ClipboardCheck,
     Download,
-    Pen,
     Share2,
     Trash2,
 } from "lucide-react";
@@ -68,7 +67,7 @@ function Link() {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(
-            `https://localhost:5173/${
+            `${import.meta.env.VITE_SITE_URL}${
                 urlData?.short_url || urlData?.custom_url
             }`
         );
@@ -202,7 +201,7 @@ function Link() {
                                         <RWebShare
                                             data={{
                                                 title: `Visit ${urlData?.title}`,
-                                                url: `http://localhost:5173/${
+                                                url: `${import.meta}${
                                                     urlData?.custom_url
                                                         ? urlData?.custom_url
                                                         : urlData?.short_url

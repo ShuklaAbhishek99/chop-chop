@@ -41,7 +41,7 @@ function LinkCard({ url, fetchUrls }) {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(
-            `https://localhost:5173/${url?.short_url || url?.custom_url}`
+            `${import.meta.env.VITE_SITE_URL}${url?.short_url || url?.custom_url}`
         );
 
         setIsCopy(true);
