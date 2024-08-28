@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Demo](#demo)
-- [Screenshots/GIFs](#screenshotsgifs)
-- [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Database Design](#database-design)
-- [Usage](#usage)
-- [Environment Variables](#environment-variables)
-- [Contributing](#contributing)
-- [Contact](#contact)
+-   [Introduction](#introduction)
+-   [Features](#features)
+-   [Project Links](#project-links)
+-   [Project Video](#project-video)
+-   [Tech Stack](#tech-stack)
+-   [Installation](#installation)
+-   [Database Design](#database-design)
+-   [Usage](#usage)
+-   [Environment Variables](#environment-variables)
+-   [Contributing](#contributing)
+-   [Contact](#contact)
 
 ## Introduction
 
@@ -20,32 +20,29 @@ ChopChop is a modern URL shortener app designed to transform long URLs into conc
 
 ## Features
 
-- **URL Shortening:** Users can input long URLs and get a shortened version, with the option to customize the shortened URL.
-- **QR Code Generation:** The app generates a QR code for the shortened URL, with the ChopChop logo embedded.
-- **Dashboard:** Users can view all their created links, total links created, and total clicks received.
-- **Link Analytics:** Each shortened URL has a detailed analytics page, showing:
-  - A line chart of the top 5 geographical locations where the link was clicked.
-  - A device information chart displaying clicks by mobile and desktop devices.
-- **User Journey Continuation:** If a user is not logged in and tries to create a link, they are redirected to the sign-in page and then back to the link creation form upon login.
+-   **URL Shortening:** Users can input long URLs and get a shortened version, with the option to customize the shortened URL.
+-   **QR Code Generation:** The app generates a QR code for the shortened URL, with the ChopChop logo embedded.
+-   **Dashboard:** Users can view all their created links, total links created, and total clicks received.
+-   **Link Analytics:** Each shortened URL has a detailed analytics page, showing:
+    -   A line chart of the top 5 geographical locations where the link was clicked.
+    -   A device information chart displaying clicks by mobile and desktop devices.
+-   **User Journey Continuation:** If a user is not logged in and tries to create a link, they are redirected to the sign-in page and then back to the link creation form upon login.
 
-## Demo
+## Project Links
 
-[Live Demo](https://chopchop.abhishekshukla.xyz/)
+[Live Project](https://chopchop.abhishekshukla.xyz/)
 
-## Screenshots/GIFs
+## Project Video
 
-<!-- Add relevant screenshots or GIFs here -->
+Click the below preview to watch the demo video
 
-- Home page showing the link creation form.
-- Dashboard displaying the list of shortened URLs with click statistics.
-- Analytics page with geographical location and device charts.
-- QR code generated for a shortened URL with the ChopChop logo.
+[![Video Preview](https://img.youtube.com/vi/SJmNKcsE3Xs/0.jpg)](https://www.youtube.com/watch?v=SJmNKcsE3Xs)
 
 ## Tech Stack
 
-- **Frontend:** React, Tailwind CSS, React Router, Recharts, Radix UI, Shadcn
-- **Backend:** Supabase
-- **Tools:** Vite, ESLint, Framer Motion
+-   **Frontend:** React, Tailwind CSS, React Router, Recharts, Radix UI, Shadcn
+-   **Backend:** Supabase
+-   **Tools:** Vite, ESLint, Framer Motion
 
 ## Installation
 
@@ -53,55 +50,60 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/ShuklaAbhishek99/chop-chop
-   cd chop-chop
-   ```
+    ```bash
+    git clone https://github.com/ShuklaAbhishek99/chop-chop
+    cd chop-chop
+    ```
+
 2. **Install dependencies:**
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
+
 3. **Set up environment variables:**
 
-   - Create a `.env` file in the root directory and add the necessary environment variables as outlined in the [Environment Variables](#environment-variables) section.
+    - Create a `.env` file in the root directory and add the necessary environment variables as outlined in the [Environment Variables](#environment-variables) section.
 
-   &nbsp;
+    &nbsp;
+
 4. **Start the development server:**
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 ## Database Design
 
 The project uses Supabase for backend services, including user authentication and data storage. Below is an overview of the database collections used in the project:
 
-| Collection Name | Description                                    | Fields                                                             |
-| --------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
-| `users`       | Stores user information and preferences.       | `id`, `email`, `name`, etc.                                  |
-| `urls`        | Stores information about each shortened URL.   | `id`, `user_id`, `long_url`, `short_url`, `clicks`, etc. |
-| `clicks`      | Tracks click analytics for each shortened URL. | `id`, `link_id`, `location`, `device`, `timestamp`, etc. |
+| Collection Name | Description                                    | Fields                                                   |
+| --------------- | ---------------------------------------------- | -------------------------------------------------------- |
+| `users`         | Stores user information and preferences.       | `id`, `email`, `name`, etc.                              |
+| `urls`          | Stores information about each shortened URL.   | `id`, `user_id`, `long_url`, `short_url`, `clicks`, etc. |
+| `clicks`        | Tracks click analytics for each shortened URL. | `id`, `link_id`, `location`, `device`, `timestamp`, etc. |
 
 ## Usage
 
 After installation, you can use the following commands to interact with the project:
 
-- **Start the server:**
+-   **Start the server:**
 
-  ```bash
-  npm run dev
-  ```
-- **Build for production:**
+    ```bash
+    npm run dev
+    ```
 
-  ```bash
-  npm run build
-  ```
-- **Preview the build:**
+-   **Build for production:**
 
-  ```bash
-  npm run preview
-  ```
+    ```bash
+    npm run build
+    ```
+
+-   **Preview the build:**
+
+    ```bash
+    npm run preview
+    ```
 
 ## Environment Variables
 
@@ -121,8 +123,8 @@ I am not accepting contributions at the moment.
 
 For any questions or feedback, feel free to contact me:
 
-- **Email:** abhishekworks99@gmail.com
-- **LinkedIn:** [Abhishek Shukla](https://www.linkedin.com/in/abhishek-shukla99/)
-- **Twitter:** [@abhishekshukl99](https://x.com/abhishekshukl99)
+-   **Email:** abhishekworks99@gmail.com
+-   **LinkedIn:** [Abhishek Shukla](https://www.linkedin.com/in/abhishek-shukla99/)
+-   **Twitter:** [@abhishekshukl99](https://x.com/abhishekshukl99)
 
 ---
