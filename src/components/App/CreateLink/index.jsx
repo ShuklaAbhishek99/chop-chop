@@ -24,7 +24,7 @@ function CreateLink({ name }) {
     const navigate = useNavigate();
     const qrRef = useRef();
     const [searchParams, setSearchParams] = useSearchParams();
-    const longLink = searchParams.get("createNew");
+    const longLink = searchParams?.get("createNew");
 
     const [errors, setErrors] = useState([]);
     const [formData, setFormData] = useState({
@@ -60,6 +60,8 @@ function CreateLink({ name }) {
     useEffect(() => {
         if (createUrlError === null && createUrlData) {
             navigate(`/link/${createUrlData[0]?.id}`);
+            console.log();
+            
         }
     }, [createUrlError, createUrlData]);
 

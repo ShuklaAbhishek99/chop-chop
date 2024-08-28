@@ -201,7 +201,7 @@ function Link() {
                                         <RWebShare
                                             data={{
                                                 title: `Visit ${urlData?.title}`,
-                                                url: `${import.meta}${
+                                                url: `${import.meta.env.VITE_SITE_URL}${
                                                     urlData?.custom_url
                                                         ? urlData?.custom_url
                                                         : urlData?.short_url
